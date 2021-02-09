@@ -20,11 +20,24 @@ function App() {
   const classes = useStyles();
 
   function getPosts() {
-    axios.get('http://opsolutions.ro:4000/memes').then(({ data }) => {
-      console.log(data);
-      setPosts((prevState) => [...prevState, ...data]);
-      setIsLoading(false);
-    });
+    // http://opsolutions.ro:4000/memes?lastId=4636
+    if (posts.length > 0) {
+      let lastPostId = posts[posts.length - 1].id;
+      console.log(lastPostId);
+      axios
+        .get(`http://opsolutions.ro:4000/memes?lastId=${lastPostId}`)
+        .then(({ data }) => {
+          console.log(data);
+          setPosts((prevState) => [...prevState, ...data]);
+          setIsLoading(false);
+        });
+    } else {
+      axios.get('http://opsolutions.ro:4000/memes').then(({ data }) => {
+        console.log(data);
+        setPosts((prevState) => [...prevState, ...data]);
+        setIsLoading(false);
+      });
+    }
   }
 
   useEffect(() => {
@@ -59,24 +72,23 @@ function App() {
 
   return (
     <div className="App">
+      {posts.map((post, index) => (
+        <div key={index} className="meme-container">
+          <Meme
+            title={post.title}
+            url={post.mediaUrl}
+            handleError={handleError}
+            index={index}
+          ></Meme>
+        </div>
+      ))}
       {isLoading ? (
         <div className="loading-container">
           <div className={classes.root}>
             <CircularProgress />
           </div>
         </div>
-      ) : (
-        posts.map((post, index) => (
-          <div key={index} className="meme-container">
-            <Meme
-              title={post.title}
-              url={post.mediaUrl}
-              handleError={handleError}
-              index={index}
-            ></Meme>
-          </div>
-        ))
-      )}
+      ) : null}
     </div>
   );
 }
