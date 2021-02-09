@@ -33,7 +33,7 @@ function App() {
   }, [isLoading]);
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -60,8 +60,10 @@ function App() {
   return (
     <div className="App">
       {isLoading ? (
-        <div className={classes.root}>
-          <CircularProgress />
+        <div className="loading-container">
+          <div className={classes.root}>
+            <CircularProgress />
+          </div>
         </div>
       ) : (
         posts.map((post, index) => (
