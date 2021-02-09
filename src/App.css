@@ -28,6 +28,7 @@
   justify-content: center;
   position: fixed;
   bottom: 0;
-  width: 500px;
-  margin: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 5px;
 }
