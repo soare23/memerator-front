@@ -19,31 +19,30 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const classes = useStyles();
 
-  function getPosts() {
-    // http://opsolutions.ro:4000/memes?lastId=4636
-    if (posts.length > 0) {
-      let lastPostId = posts[posts.length - 1].id;
-      console.log(lastPostId);
-      axios
-        .get(`http://opsolutions.ro:4000/memes?lastId=${lastPostId}`)
-        .then(({ data }) => {
+  useEffect(() => {
+    if (!isLoading) return;
+    function getPosts() {
+      // http://opsolutions.ro:4000/memes?lastId=4636
+      if (posts.length > 0) {
+        let lastPostId = posts[posts.length - 1].id;
+        console.log(lastPostId);
+        axios
+          .get(`http://opsolutions.ro:4000/memes?lastId=${lastPostId}`)
+          .then(({ data }) => {
+            console.log(data);
+            setPosts((prevState) => [...prevState, ...data]);
+            setIsLoading(false);
+          });
+      } else {
+        axios.get('http://opsolutions.ro:4000/memes').then(({ data }) => {
           console.log(data);
           setPosts((prevState) => [...prevState, ...data]);
           setIsLoading(false);
         });
-    } else {
-      axios.get('http://opsolutions.ro:4000/memes').then(({ data }) => {
-        console.log(data);
-        setPosts((prevState) => [...prevState, ...data]);
-        setIsLoading(false);
-      });
+      }
     }
-  }
-
-  useEffect(() => {
-    if (!isLoading) return;
     getPosts();
-  }, [isLoading]);
+  }, [isLoading, posts]);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll, { passive: true });
