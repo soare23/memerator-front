@@ -31,6 +31,9 @@ body {
 .title-share-button-container h3 {
   color: #dde0e4;
   font-family: 'Noto Sans', sans-serif;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .loading-container {
