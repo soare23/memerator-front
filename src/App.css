@@ -1,7 +1,12 @@
+body {
+  background-color: #18191a;
+}
+
 .App {
   width: 500px;
   margin: 50px auto;
   max-width: 100%;
+  /* background-color: black; */
 }
 
 .meme-container {
@@ -21,6 +26,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.title-share-button-container h3 {
+  color: #dde0e4;
+  font-family: 'Noto Sans', sans-serif;
 }
 
 .loading-container {
