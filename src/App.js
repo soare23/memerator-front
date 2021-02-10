@@ -42,7 +42,7 @@ function App() {
       }
     }
     getPosts();
-  }, [isLoading, posts]);
+  });
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll, { passive: true });
