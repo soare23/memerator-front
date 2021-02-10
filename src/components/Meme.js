@@ -8,6 +8,8 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(1),
+    color: '#dde0e4',
+    backgroundColor: '#606061',
   },
 }));
 
