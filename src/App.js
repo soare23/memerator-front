@@ -27,7 +27,7 @@ function App() {
         let lastPostId = posts[posts.length - 1].id;
         console.log(lastPostId);
         axios
-          .get(`https://www.opsolutions.ro/memes?lastId=${lastPostId}/`)
+          .get(`https://www.opsolutions.ro/memes/?lastId=${lastPostId}`)
           .then(({ data }) => {
             console.log(data);
             setPosts((prevState) => [...prevState, ...data]);
