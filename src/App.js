@@ -19,30 +19,32 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const classes = useStyles();
 
-  useEffect(() => {
-    if (!isLoading) return;
-    function getPosts() {
-      // http://opsolutions.ro:4000/memes?lastId=4636
-      if (posts.length > 0) {
-        let lastPostId = posts[posts.length - 1].id;
-        console.log(lastPostId);
-        axios
-          .get(`https://www.opsolutions.ro/memes/?lastId=${lastPostId}`)
-          .then(({ data }) => {
-            console.log(data);
-            setPosts((prevState) => [...prevState, ...data]);
-            setIsLoading(false);
-          });
-      } else {
-        axios.get('https://www.opsolutions.ro/memes/').then(({ data }) => {
-          console.log(data);
+  function getPosts() {
+    // http://opsolutions.ro:4000/memes?lastId=4636
+    if (posts.length > 0) {
+      let lastPostId = posts[posts.length - 1].id;
+      console.log(lastPostId);
+      axios
+        .get(`https://www.opsolutions.ro/memes/?lastId=${lastPostId}`)
+        .then(({ data }) => {
+          console.log('new fetch');
           setPosts((prevState) => [...prevState, ...data]);
           setIsLoading(false);
         });
-      }
+    } else {
+      axios.get('https://www.opsolutions.ro/memes/').then(({ data }) => {
+        console.log('initial fetch');
+        setPosts((prevState) => [...prevState, ...data]);
+        setIsLoading(false);
+      });
     }
+  }
+
+  useEffect(() => {
+    if (!isLoading) return;
     getPosts();
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading]);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll, { passive: true });
