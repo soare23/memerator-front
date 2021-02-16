@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
+import { SideBySideMagnifier } from 'react-image-magnifiers';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
@@ -40,13 +41,14 @@ function Meme({ title, url, handleError, index }) {
           </Button>
         </CopyToClipboard>
       </div>
-      <img
-        src={url}
-        alt="meme"
-        onLoad={(event) => {
-          handleError(event, index);
+      <SideBySideMagnifier
+        imageSrc={url}
+        imageAlt="meme"
+        alwaysInPlace={true}
+        onImageLoad={(e) => {
+          handleError(e, index);
         }}
-      ></img>
+      />
     </div>
   );
 }
