@@ -16,7 +16,6 @@ const useStyles = makeStyles((theme) => ({
 function VideoMeme({ title, type, url, index }) {
   const [postCopied, setPostCopied] = useState(false);
   const classes = useStyles();
-  console.log(url);
 
   return (
     <div key={index}>
@@ -43,13 +42,16 @@ function VideoMeme({ title, type, url, index }) {
       </div>
       {type === 'reddit-video' ? (
         <div className="video-container">
-          <video autoPlay loop muted controls playsinline>
+          <video playsInline autoPlay loop muted controls id="video">
             <source src={url} type="video/mp4"></source>
           </video>
         </div>
       ) : (
         <div className="video-container">
-          <iframe src={`${url}?autoplay=1&mute=1`} title={title}></iframe>
+          <iframe
+            src={`${url}?autoplay=1&mute=1&playsinline=1&loop=1`}
+            title={title}
+          ></iframe>
         </div>
       )}
     </div>
