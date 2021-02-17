@@ -1,6 +1,7 @@
 import './App.css';
 import { useState, useEffect } from 'react';
 import Meme from './components/Meme';
+import VideoMeme from './components/VideoMeme';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -18,6 +19,10 @@ function App() {
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const classes = useStyles();
+
+  posts.forEach((post) => {
+    console.log(post.type);
+  });
 
   function getPosts() {
     // http://opsolutions.ro:4000/memes?lastId=4636
@@ -73,16 +78,27 @@ function App() {
 
   return (
     <div className="App">
-      {posts.map((post, index) => (
-        <div key={index} className="meme-container">
-          <Meme
-            title={post.title}
-            url={post.mediaUrl}
-            handleError={handleError}
-            index={index}
-          ></Meme>
-        </div>
-      ))}
+      {posts.map((post, index) =>
+        post.type === 'image' ? (
+          <div key={index} className="meme-container">
+            <Meme
+              title={post.title}
+              url={post.mediaUrl}
+              handleError={handleError}
+              index={index}
+            ></Meme>
+          </div>
+        ) : (
+          <div key={index} className="meme-container">
+            <VideoMeme
+              title={post.title}
+              type={post.type}
+              url={post.mediaUrl}
+              index={index}
+            ></VideoMeme>
+          </div>
+        )
+      )}
       {isLoading ? (
         <div className="loading-container">
           <div className={classes.root}>
