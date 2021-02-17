@@ -43,7 +43,7 @@ function VideoMeme({ title, type, url, index }) {
       </div>
       {type === 'reddit-video' ? (
         <div className="video-container">
-          <video autoPlay muted controls>
+          <video autoPlay loop muted controls webkitPlaysinline playsinline>
             <source src={url} type="video/mp4"></source>
           </video>
         </div>
