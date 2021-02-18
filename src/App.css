@@ -1,5 +1,7 @@
 body {
   background-color: #18191a;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 .App {
