@@ -20,25 +20,18 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const classes = useStyles();
 
-  posts.forEach((post) => {
-    console.log(post.type);
-  });
-
   function getPosts() {
     // http://opsolutions.ro:4000/memes?lastId=4636
     if (posts.length > 0) {
       let lastPostId = posts[posts.length - 1].id;
-      console.log(lastPostId);
       axios
         .get(`https://www.opsolutions.ro/memes/?lastId=${lastPostId}`)
         .then(({ data }) => {
-          console.log('new fetch');
           setPosts((prevState) => [...prevState, ...data]);
           setIsLoading(false);
         });
     } else {
       axios.get('https://www.opsolutions.ro/memes/').then(({ data }) => {
-        console.log('initial fetch');
         setPosts((prevState) => [...prevState, ...data]);
         setIsLoading(false);
       });
